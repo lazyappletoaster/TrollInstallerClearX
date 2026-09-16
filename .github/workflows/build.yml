@@ -25,7 +25,16 @@ jobs:
         run: |
           set -e
 
-          xcodebuild -configuration Release -derivedDataPath DerivedData/TrollInstallerX -destination 'generic/platform=iOS' -scheme TrollInstallerX CODE_SIGNING_ALLOWED="NO" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_IDENTITY=""
+          xcodebuild -configuration Release \
+            -derivedDataPath DerivedData/TrollInstallerX \
+            -destination 'generic/platform=iOS' \
+            -scheme TrollInstallerX \
+            CODE_SIGNING_ALLOWED="NO" \
+            CODE_SIGNING_REQUIRED="NO" \
+            CODE_SIGN_IDENTITY="" \
+            ENABLE_PREVIEWS=NO \
+            GCC_TREAT_WARNINGS_AS_ERRORS=NO \
+            SWIFT_TREAT_WARNINGS_AS_ERRORS=NO
           cp Resources/ents.plist DerivedData/TrollInstallerX/Build/Products/Release-iphoneos/
           pushd DerivedData/TrollInstallerX/Build/Products/Release-iphoneos
           rm -rf Payload TrollInstallerX.ipa
