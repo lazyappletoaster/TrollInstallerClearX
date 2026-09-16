@@ -2,14 +2,14 @@ name: Build TrollInstallerX IPA
 
 on:
   push:
-    branches: main
+    branches: [ main, master ]
   pull_request:
-    branches: main
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
       - name: Checkout repository
@@ -38,9 +38,8 @@ jobs:
           rm -rf Payload
 
       - name: Upload IPA Artifact
-        uses: actions/zip-release@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          type: 'zip'
-          filename: 'TrollInstallerX-Build.zip'
-          path: 'TrollInstallerX.ipa'
+          name: TrollInstallerX-IPA
+          path: TrollInstallerX.ipa
