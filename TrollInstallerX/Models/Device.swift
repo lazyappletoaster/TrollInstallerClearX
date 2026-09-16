@@ -2,9 +2,6 @@
 //  Device.swift
 //  TrollInstallerX
 //
-//  Edited by lazyappletoaster
-//  TrollInstallerClearX
-//
 //  Created by Alfie on 22/03/2024.
 //
 
@@ -88,7 +85,7 @@ struct Device {
         || buildNumberStr == "21A5277j" // Beta 3
         || buildNumberStr == "21A5291h" // Beta 4
         || buildNumberStr == "21A5291j" // Beta 4 (re-release)
-        || buildNumberStr == "21A329" // iOS 17 Stable
+        || buildNumberStr == "21A329" // Stable
         {
             self.isOnSupported17Beta = true
         } else {
@@ -108,7 +105,7 @@ struct Device {
         if self.cpuFamily == .A8 {
             isSupported = self.version < Version("15.2")
         } else {
-            isSupported = (self.version <= Version("17")) || (self.isOnSupported17Beta && !((self.cpuFamily == .A14 && !isM2) || self.cpuFamily == .A16))
+            isSupported = (self.version <= Version("16.6.1")) || (self.isOnSupported17Beta && !((self.cpuFamily == .A15 && !isM2) || self.cpuFamily == .A16))
         }
     }
     
@@ -121,10 +118,10 @@ struct Device {
     
     var supportsDirectInstall: Bool {
         if !self.isArm64e { return true }
-        if self.cpuFamily == .A14 || self.cpuFamily == .A16 {
-            return self.version < Version("17")
+        if self.cpuFamily == .A15 || self.cpuFamily == .A16 {
+            return self.version < Version("16.5.1")
         } else {
-            return self.version < Version("17")
+            return self.version < Version("16.6")
         }
     }
 }
